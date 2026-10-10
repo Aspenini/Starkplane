@@ -191,6 +191,14 @@ test("extreme damping remains finite and numerically unsupported ratios are reje
   assert.ok(Number.isFinite(state.value)); assert.ok(Math.abs(state.value - 1) < 0.001);
 });
 
+test("compiled CSS uses logical directions for direction-sensitive controls", async () => {
+  const css = await readFile(new URL("../lib/style.css", import.meta.url), "utf8");
+  assert.doesNotMatch(css, /border-left|(?:^|[\s;{])(?:left|right):/m);
+  assert.match(css, /\.ui-switch:dir\(rtl\) input:checked \+ \.ui-switch__track::after/);
+  assert.match(css, /\.ui-range:dir\(rtl\)/);
+  assert.match(css, /\.ui-button:hover:not\(:disabled, \[aria-disabled=true\]\)/);
+});
+
 test("unknown Sass theme tokens fail before generating misleading CSS", () => {
   assert.throws(() => sass.compileString('@use "src/styles/index" as ui with ($theme: ("color-typo": red)); @include ui.styles;', { loadPaths: [process.cwd()] }), /Unknown interface token/);
 });

@@ -89,7 +89,7 @@ export function floating(trigger: HTMLElement, surface: HTMLElement, life: Retur
   const view = trigger.ownerDocument.defaultView;
   if (view) {
     life.on(view, "resize", update);
-    life.on(trigger.ownerDocument, "scroll", update);
+    // One capturing listener observes document and nested scroll containers.
     trigger.ownerDocument.addEventListener("scroll", update, true);
     life.add(() => trigger.ownerDocument.removeEventListener("scroll", update, true));
     if (view.visualViewport) { life.on(view.visualViewport, "resize", update); life.on(view.visualViewport, "scroll", update); }

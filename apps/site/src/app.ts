@@ -1,4 +1,4 @@
-import { designTokens, createSpring, createToastRegion, createSegmentedControl, createRange, createField } from "starkplane";
+import { designTokens, createSpring, createToastRegion, createSegmentedControl, createRange, createField, type RangeController } from "starkplane";
 import { $, $$ } from "./dom.js";
 import { instrument } from "./instrument.js";
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -52,7 +52,7 @@ reducedMotion.addEventListener("change", () => {
 });
 
 export let currentView = "overview";
-function changeView(view: string | undefined, scroll = true) {
+function changeView(view: string | undefined, navigated = true) {
   view ??= "overview";
   if (!["overview", "materials", "motion", "components", "specification"].includes(view))
     view = "overview";
@@ -70,7 +70,12 @@ function changeView(view: string | undefined, scroll = true) {
   document.title = `STARKPLANE / 01 — ${view[0].toUpperCase() + view.slice(1)}`;
   if (view !== "overview") stopRotation();
   if (view === "motion") paintSimulation();
-  if (scroll) window.scrollTo({ top: 0, behavior: "instant" });
+  if (!navigated) return;
+  window.scrollTo({ top: 0, behavior: "instant" });
+  // Hash views replace the page content, so move focus to the new heading.
+  const heading = $(`#${view}-view h1`);
+  heading.tabIndex = -1;
+  heading.focus({ preventScroll: true });
 }
 $$("[data-go]").forEach((button) =>
   button.addEventListener("click", () => {
@@ -299,34 +304,27 @@ const presets: Record<string, readonly [number, number, number]> =
       [p.mass, p.stiffness, p.damping],
     ]),
   );
-export function updateRange(input: HTMLInputElement) {
-  input.style.setProperty(
-    "--ui-range-fill",
-    `${((+input.value - +input.min) / (+input.max - +input.min)) * 100}%`,
-  );
-  const output = $(`#${input.id}-output`);
-  if (output)
-    output.textContent =
-      input.id === "mass"
-        ? `${(+input.value).toFixed(1)} kg`
-        : `${input.value} ${input.id === "stiffness" ? "N/m" : input.id === "damping" ? "Ns/m" : "Hz"}`;
-}
-const rangeControllers = $$<HTMLInputElement>("input[type=range]").map((input) => createRange(input));
-$$<HTMLInputElement>("input[type=range]").forEach((input) => {
-  updateRange(input);
-  input.addEventListener("input", () => {
-    updateRange(input);
-    if (["mass", "stiffness", "damping"].includes(input.id))
-      presetControl.clear();
-  });
-});
+const units: Record<string, (value: number) => string> = {
+  mass: value => `${value.toFixed(1)} kg`,
+  stiffness: value => `${value} N/m`,
+  damping: value => `${value} Ns/m`,
+  frequency: value => `${value} Hz`,
+};
+const ranges: Record<string, RangeController> = Object.fromEntries(
+  Object.entries(units).map(([id, format]) => [
+    id,
+    createRange($<HTMLInputElement>(`#${id}`), {
+      output: $<HTMLOutputElement>(`#${id}-output`),
+      format,
+      // Manual tuning departs from every named preset.
+      onChange: () => { if (id !== "frequency") presetControl.clear(); },
+    }),
+  ]),
+);
 const presetControl = createSegmentedControl($("#motion-presets"), {
   value: "precise",
   onChange(value) {
-    ["mass", "stiffness", "damping"].forEach((id, index) => {
-      $<HTMLInputElement>(`#${id}`).value = String(presets[value][index]);
-      updateRange($<HTMLInputElement>(`#${id}`));
-    });
+    ["mass", "stiffness", "damping"].forEach((id, index) => ranges[id].setValue(presets[value][index]));
     resetMotion();
   },
 });
@@ -414,4 +412,4 @@ $("#export-mobile").addEventListener("click", () =>
 setEffects(effects, false);
 changeView(location.hash.slice(1), false);
 
-window.addEventListener("pagehide", event => { if (event.persisted) return; stopRotation(); simulationSpring.destroy(); feedback.destroy(); unitField.destroy(); presetControl.destroy(); rangeControllers.forEach(controller => controller.destroy()); }, { once: true });
+window.addEventListener("pagehide", event => { if (event.persisted) return; stopRotation(); simulationSpring.destroy(); feedback.destroy(); unitField.destroy(); presetControl.destroy(); Object.values(ranges).forEach(controller => controller.destroy()); }, { once: true });

@@ -6,7 +6,7 @@ Verified locally on 2026-10-10. The overall project version is v0.1.0; the previ
 
 - Bun 1.4.0 with the workspace lockfile; frozen installation succeeds.
 - Strict TypeScript checks cover the library, site, public consumer API, and rejected invalid option types.
-- 38 automated tests pass. They cover spring convergence and numerical limits, cancellation and reduced motion, SSR imports, independent SVG IDs, keyboard navigation, form reset/validation, focus recovery, disabled states, cleanup and reentrant destruction, safe text feedback, Sass scoping/theming, token consistency, and default semantic contrast.
+- 41 automated tests pass. They cover spring convergence and numerical limits, cancellation and reduced motion, SSR imports, independent SVG IDs, keyboard navigation, form reset/validation, focus recovery, disabled states, cleanup and reentrant destruction, safe text feedback, Sass scoping/theming, logical-direction CSS, token consistency, and default semantic contrast.
 - The library has no runtime dependencies. The site consumes public package exports. Sass helpers alone emit no CSS; component styles require an explicit mixin.
 - The local archive installs into an independent Bun consumer. Its ESM imports without browser globals, declarations type-check, exported CSS and JSON resolve, and the Sass package importer emits the full component set with a theme override. The archive includes the specification, API reference, and standalone example, and excludes site source and development tests.
 
@@ -28,6 +28,8 @@ The tested browser was Chromium 155 in the Codex in-app browser on macOS. Intend
 | Tooltip | Focus display and Escape dismissal; hover persistence and description preservation | Manual browser interaction and controller tests |
 | Forms and native controls | Invalid email receives linked inline feedback and focus; correction clears it; switch and range keyboard changes update readouts | Manual browser interaction and controller tests |
 | Visual review | Original rectangular geometry, lime actions, graphite surfaces, restrained cyan, and thin range track preserved | [Overview](../assets/previews/starkplane-v0.5.0-overview.png), [catalogue](../assets/previews/starkplane-v0.5.0-components.png) |
+
+A follow-up pass on 2026-10-10 in a Chromium-based in-app browser on Windows re-ran axe on all five site sections at 320px and the standalone example (zero violations), measured page scroll width at 320, 800, 1000, 1200, and 1600px (no page-level horizontal scroll), confirmed the hero headline fits its column and the release stamp no longer overlaps the instrument workspace, checked switch and range direction under `dir="rtl"`, and checked that view navigation moves focus to the new view's heading. The archived JSON reports above are from the earlier pass.
 
 The site audits were run with interpolated motion disabled and content settled. The standalone audit includes its SVG instrument content. Floating placement was separately exercised with motion enabled. Append `?audit=1` to a local preview URL to load the optional axe audit UI; it is not loaded during normal visits.
 

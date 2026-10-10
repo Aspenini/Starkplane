@@ -96,6 +96,8 @@
           <p>Everything is subject to change until <strong>v1.0.0</strong>.</p>
         </div>
         <section id="overview-view" class="view">
+          <div class="hero-layout">
+          <div class="hero-intro">
           <div class="page-heading">
             <div>
               <div class="eyebrow">
@@ -104,12 +106,7 @@
               </div>
               <h1>Interfaces.<br /><span>Engineered.</span></h1>
             </div>
-            <div class="release-stamp">
-              DESIGN SYSTEM<br /><strong>VOL. 001</strong
-              ><span>STARKPLANE / PRE–1.0</span>
-            </div>
           </div>
-          <div class="hero-layout">
             <div class="hero-copy">
               <p>
                 A new design language built around precision engineering,
@@ -130,6 +127,12 @@
               <div class="hero-footnote">
                 <span class="mini-rule"></span> BUILT WITH INTENT. NOT ORNAMENT.
               </div>
+            </div>
+          </div>
+          <div class="hero-instrument">
+            <div class="release-stamp">
+              DESIGN SYSTEM<br /><strong>VOL. 001</strong
+              ><span>STARKPLANE / PRE–1.0</span>
             </div>
             <div class="model-workspace">
               <div class="model-toolbar">
@@ -207,6 +210,7 @@
                 </div>
               </div>
             </div>
+          </div>
           </div>
           <div class="section-divider">
             <span>THE OPERATING PRINCIPLES</span
@@ -769,7 +773,6 @@
                     id="unit-name" class="ui-field__input" required aria-describedby="unit-hint"
                     maxlength="24"
                     value="UNIT–001"
-                    aria-label="Instrument ID"
                   /><span id="input-check" class="ui-field__error" hidden></span><span id="unit-hint" class="ui-field__hint">Use a unique identifier, up to 24 characters.</span>
                 </div>
               </div>
@@ -805,7 +808,7 @@
           <div class="component-grid">
             <article class="component-card"><div class="component-title"><span>05 / NATIVE FORMS</span><span>CHOICES</span></div>
               <form id="specimen-form" class="ui-stack" novalidate>
-                <label class="ui-field"><span class="ui-field__label">Contact email</span><input id="form-email" class="ui-field__input" type="email" autocomplete="email" required aria-describedby="email-hint" placeholder="engineer@example.com"><span id="email-hint" class="ui-field__hint">Required for this local validation example.</span><span id="email-error" class="ui-field__error" hidden></span></label>
+                <div class="ui-field"><label class="ui-field__label" for="form-email">Contact email</label><input id="form-email" class="ui-field__input" type="email" autocomplete="email" required aria-describedby="email-hint" placeholder="engineer@example.com"><span id="email-hint" class="ui-field__hint">Required for this local validation example.</span><span id="email-error" class="ui-field__error" hidden></span></div>
                 <label class="ui-field"><span class="ui-field__label">Operating profile</span><select class="ui-field__input" name="profile"><option>Precision</option><option>Weighted</option><option>Elastic</option></select></label>
                 <label class="ui-field"><span class="ui-field__label">Notes</span><textarea class="ui-field__input" name="notes" placeholder="Assembly notes"></textarea></label>
                 <fieldset class="ui-fieldset ui-stack"><legend>Deployment target</legend><label class="ui-choice"><input type="radio" name="target" value="desktop" checked>Desktop</label><label class="ui-choice"><input type="radio" name="target" value="embedded">Embedded</label><label class="ui-choice"><input type="checkbox" name="telemetry">Enable local telemetry</label><label class="ui-choice"><input id="partial-selection" type="checkbox">Partial selection</label></fieldset>

@@ -50,7 +50,9 @@ Field validation uses native validity first, then the optional custom validator.
 
 Menu commands support one level of button actions. Tooltips contain text, not controls. Dialogs rely on native modal support; the controller does not polyfill older browsers. Floating surfaces start closed. Native manual popovers keep their rendering independent of transformed ancestors; older untransformed contexts use fixed positioning. Programmatic popup calls update placement; viewport resize/scroll events reposition an open menu or tooltip.
 
-Instrument separation/intensity are percentages clamped to 0–100; separation maps to 0–60px before the projection multiplier. Rotation is finite degrees normalized by its setter. Layers are `all`, `cover`, `core`, and `base`; modes are `blueprint` and `material`. Inspection reports the generated visual's layer/path/element counts, not physical equipment status. Each instrument owns independent SVG IDs and spring state. Callers providing explicit SVG prefixes must make them unique in the document.
+Component styles use logical properties. In right-to-left contexts (`dir="rtl"`), status and toast accents sit on the inline start, switch thumbs travel toward the inline end, range fill follows the native thumb, and vertical tab indicators sit on the inline end.
+
+Instrument separation/intensity are percentages clamped to 0–100; separation maps to 0–60px before the projection multiplier. Rotation is finite degrees normalized to 0–360, both initially and by its setter. Invalid initial options throw before the host is changed. Layers are `all`, `cover`, `core`, and `base`; modes are `blueprint` and `material`. Inspection reports the generated visual's layer/path/element counts, not physical equipment status. Each instrument owns independent SVG IDs and spring state. Callers providing explicit SVG prefixes must make them unique in the document.
 
 ## Semantic markup example
 

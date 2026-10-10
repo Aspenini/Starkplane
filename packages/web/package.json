@@ -19,7 +19,8 @@
       "default": "./src/styles/index.scss"
     },
     "./tokens.json": "./lib/tokens.json",
-    "./specification.md": "./docs/design-language.md"
+    "./specification.md": "./docs/design-language.md",
+    "./package.json": "./package.json"
   },
   "files": [
     "lib",

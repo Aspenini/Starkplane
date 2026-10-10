@@ -3,18 +3,9 @@
 @use "console";
 @include ui.styles;
 
-// Site-only aliases preserve the prototype layout while sharing library tokens.
+// Expose the default tokens document-wide for the site's own layout aliases.
 :root {
   @include ui.theme;
-  --base: var(--ui-color-foundation);
-  --surface: var(--ui-color-surface);
-  --raised: var(--ui-color-raised);
-  --recess: var(--ui-color-recess);
-  --seam: var(--ui-color-seam);
-  --text: var(--ui-color-content);
-  --muted: var(--ui-color-secondary);
-  --accent: var(--ui-color-action);
-  --amber: var(--ui-color-attention);
 }
 .instrument-visual.ui-instrument {
   position: absolute;
@@ -68,3 +59,16 @@ footer, footer > span { color: var(--ui-color-secondary); font-size: 11px; }
 
 .side-footer, .side-footer > span { color: var(--ui-color-secondary); opacity: 1; }
 .spec-content pre:focus-visible { @include ui.focus-ring; }
+
+// Headings receive programmatic focus after view changes; they are not controls.
+.view h1[tabindex="-1"]:focus { outline: none; }
+
+// In two-column layouts the headline shares its row with the instrument, so it
+// is bounded by its own column rather than the viewport.
+@media (min-width: 901px) {
+  .hero-intro { container-type: inline-size; }
+  .hero-intro h1 { font-size: min(clamp(56px, 5.4vw, 83px), 19.5cqi); }
+}
+@media (min-width: 901px) and (max-width: 1150px) {
+  .hero-intro h1 { font-size: min(62px, 19.5cqi); }
+}

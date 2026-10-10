@@ -15,6 +15,8 @@ bun run build:site
 
 Open `http://127.0.0.1:4173` for the site or `/library-example.html` for the standalone library example. From this workspace directory, `bun run build` also builds its library dependency. All commands are local; none publishes or deploys.
 
+Views are selected by URL hash. Navigating to a view scrolls to the top and moves focus to its heading so keyboard and screen-reader users land in the new content.
+
 The Specification view renders `docs/design-language.md`, the generated `docs/tokens.md`, and `docs/web-api.md`. Component specimens use the library classes and controllers. `src/catalogue.ts` wires the general-purpose interactive examples; page framing and domain-specific diagrams remain site content.
 
 Use `/?audit=1#components` locally to opt into the accessibility audit. It is bundled separately and not requested by normal visits. The audit reports violations and items needing manual review; it does not claim accessibility certification.

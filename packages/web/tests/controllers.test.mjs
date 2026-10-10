@@ -152,6 +152,20 @@ test("instrument instances isolate selection, gradients, numeric bounds, and des
   const ids=[...root.querySelectorAll("[id]")].map(node=>node.id);assert.equal(ids.length,new Set(ids).size);
   first.destroy();assert.equal(a.innerHTML,original);assert.equal(a.classList.contains("ui-instrument"),false);assert.equal(second.inspect().layers,3);second.destroy();assert.throws(()=>first.setMode("material"),/destroyed/);
 });
+test("instrument normalizes initial rotation and rejects invalid options before mounting", () => {
+  const host=mount('<div><p>Original</p></div>'),original=host.outerHTML;
+  const instrument=createInstrument(host,{motion:false,rotation:-90,intensity:150});
+  assert.equal(instrument.state.rotation,270);assert.equal(instrument.state.intensity,100);
+  assert.match(host.querySelector('[id$="-rotor"]').getAttribute("transform"),/^rotate\(270 /);
+  instrument.destroy();
+  for(const options of [{rotation:Infinity},{separation:NaN},{layer:"lid"},{mode:"xray"}]){assert.throws(()=>createInstrument(host,options),RangeError);assert.equal(host.outerHTML,original);}
+});
+test("floating surfaces remove their scroll and resize listeners on destruction", () => {
+  const root=mount('<div><button>Actions</button><div hidden><button data-ui-menu-value="a">A</button></div></div>'),calls=new Map();
+  for(const target of [document,view]){for(const method of ["addEventListener","removeEventListener"]){const original=target[method].bind(target);target[method]=(type,...rest)=>{if(type==="scroll"||type==="resize")calls.set(method,(calls.get(method)??0)+1);return original(type,...rest);};}}
+  const menu=createMenu(root.firstChild,root.lastChild);menu.destroy();
+  assert.ok(calls.get("addEventListener")>0);assert.equal(calls.get("removeEventListener"),calls.get("addEventListener"));
+});
 test("theme cleanup restores inline priorities without disturbing consumer properties", () => {
   const host=mount('<div style="--ui-color-action: red !important; padding: 8px"></div>');
   const restore=applyTheme(host,{action:"#d6ef79",error:"#f29b88"});restore();assert.equal(host.style.getPropertyValue("--ui-color-action"),"red");assert.equal(host.style.getPropertyPriority("--ui-color-action"),"important");assert.equal(host.style.padding,"8px");assert.equal(host.style.getPropertyValue("--ui-color-error"),"");

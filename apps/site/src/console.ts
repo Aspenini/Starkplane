@@ -1,9 +1,8 @@
-import { createSegmentedControl, type InstrumentLayer, type InstrumentMode } from "starkplane";
+import { createRange, createSegmentedControl, type InstrumentLayer, type InstrumentMode } from "starkplane";
 import { $, $$ } from "./dom.js";
 import {
   effects,
   currentView,
-  updateRange,
   toast,
   resetRotation,
 } from "./app.js";
@@ -48,12 +47,21 @@ function paintLayers() {
   );
 }
 $("#instrument-visual").addEventListener("ui:model-change", paintLayers);
-function setSeparation(value: string | number, log = true) {
-  $<HTMLInputElement>("#separation").value = String(value);
-  updateRange($<HTMLInputElement>("#separation"));
-  $("#separation-output").textContent = `${value}%`;
+const percent = (value: number) => `${value}%`;
+const separationRange = createRange($<HTMLInputElement>("#separation"), {
+  output: $<HTMLOutputElement>("#separation-output"),
+  format: percent,
+  onChange: value => setSeparation(value, false),
+});
+const intensityRange = createRange($<HTMLInputElement>("#detail"), {
+  output: $<HTMLOutputElement>("#detail-output"),
+  format: percent,
+  onChange: value => setLineIntensity(value),
+});
+function setSeparation(value: number, log = true) {
+  separationRange.setValue(value);
   modelState.history = [instrument.state.renderedSeparation];
-  instrument.setSeparation(+value);
+  instrument.setSeparation(value);
   if (log) addModelEvent(`Layer separation set to ${value}%`);
 }
 function selectModelLayer(layer: InstrumentLayer, log = true) {
@@ -90,24 +98,15 @@ function setModelMode(mode: InstrumentMode, log = true) {
       `${mode === "blueprint" ? "Blueprint" : "Material"} view enabled`,
     );
 }
-function setLineIntensity(value: string | number, log = false) {
-  $<HTMLInputElement>("#detail").value = String(value);
-  updateRange($<HTMLInputElement>("#detail"));
-  $("#detail-output").textContent = `${value}%`;
-  $("#intensity-telemetry").textContent = `${value}%`;
-  instrument.setIntensity(+value);
-  if (log) addModelEvent(`Line intensity set to ${value}%`);
+function setLineIntensity(value: number) {
+  intensityRange.setValue(value);
+  $("#intensity-telemetry").textContent = percent(value);
+  instrument.setIntensity(value);
 }
-$<HTMLInputElement>("#separation").addEventListener("input", (event) =>
-  setSeparation((event.currentTarget as HTMLInputElement).value, false),
-);
 $<HTMLInputElement>("#separation").addEventListener("change", (event) =>
   addModelEvent(
     `Layer separation set to ${(event.currentTarget as HTMLInputElement).value}%`,
   ),
-);
-$<HTMLInputElement>("#detail").addEventListener("input", (event) =>
-  setLineIntensity((event.currentTarget as HTMLInputElement).value),
 );
 $<HTMLInputElement>("#detail").addEventListener("change", (event) =>
   addModelEvent(
@@ -153,7 +152,6 @@ document.addEventListener("visibilitychange", syncMotion);
 $("#element-count").innerHTML =
   `${String(instrument.inspect().elements).padStart(3, "0")}<span>SVG</span>`;
 setLineIntensity(72);
-$("#separation-output").textContent = "40%";
 paintLayers();
 
-window.addEventListener("pagehide", event => { if (event.persisted) return; layerControl.destroy(); modeControl.destroy(); instrument.destroy(); }, { once: true });
+window.addEventListener("pagehide", event => { if (event.persisted) return; layerControl.destroy(); modeControl.destroy(); separationRange.destroy(); intensityRange.destroy(); instrument.destroy(); }, { once: true });

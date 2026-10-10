@@ -1,18 +1,19 @@
+// Site aliases for the prototype layout; every value comes from the library tokens.
 :root {
-  --base: #111314;
-  --surface: #191c1e;
-  --raised: #232729;
-  --recess: #0d0f10;
-  --seam: #303537;
-  --text: #eceee9;
-  --muted: #8c9599;
-  --accent: #d6ef79;
-  --amber: #dfa86c;
-  --chamfer: 8px;
-  --unit: 8px;
-  --display: "Space Grotesk", Arial, sans-serif;
-  --mono: "IBM Plex Mono", monospace;
-  --motion: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --base: var(--ui-color-foundation);
+  --surface: var(--ui-color-surface);
+  --raised: var(--ui-color-raised);
+  --recess: var(--ui-color-recess);
+  --seam: var(--ui-color-seam);
+  --text: var(--ui-color-content);
+  --muted: var(--ui-color-secondary);
+  --accent: var(--ui-color-action);
+  --amber: var(--ui-color-attention);
+  --chamfer: var(--ui-geometry-action-chamfer);
+  --unit: var(--ui-spacing-unit);
+  --display: var(--ui-font-display);
+  --mono: var(--ui-font-instrument);
+  --motion: var(--ui-motion-easing);
 }
 * {
   box-sizing: border-box;
@@ -363,8 +364,7 @@ h1 > span {
   letter-spacing: 1.2px;
   color: #677175;
   line-height: 1.7;
-  align-self: flex-start;
-  margin-top: 4px;
+  margin-bottom: 16px;
 }
 .release-stamp strong {
   display: block;
@@ -447,7 +447,6 @@ h1 > span {
   );
   border: 1px solid #333b3d;
   box-shadow: inset 0 1px #ffffff08;
-  margin-top: -146px;
   isolation: isolate;
 }
 .instrument-top,
@@ -545,48 +544,6 @@ h1 > span {
   left: auto;
   bottom: 4px;
   right: 6px;
-}
-.spec-label {
-  position: absolute;
-  z-index: 2;
-  font: var(--ui-type-scale-caption) var(--mono);
-  letter-spacing: 0.7px;
-  color: #a6b2b1;
-}
-.spec-label > span {
-  display: block;
-  font-size: var(--ui-type-scale-caption);
-  color: #647276;
-  margin-bottom: 6px;
-}
-.spec-label div {
-  height: 1px;
-  background: #586668;
-  opacity: 0.5;
-  margin-top: 9px;
-  position: relative;
-  width: 49px;
-}
-.spec-label div:after {
-  content: "";
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: #b0baba;
-  right: 0;
-  top: -1px;
-}
-.spec-left {
-  left: 18px;
-  top: 113px;
-}
-.spec-right {
-  right: 18px;
-  top: 215px;
-  text-align: right;
-}
-.spec-right div {
-  margin-left: auto;
 }
 .spec-coordinate {
   position: absolute;
@@ -1335,10 +1292,6 @@ body.light-off .instrument-visual .signal {
 .side-note p {
   font-size: 16px;
 }
-.instrument-panel {
-  height: 400px;
-  margin-top: -160px;
-}
 @media (min-width: 1450px) {
   main {
     padding: 50px 55px 0;
@@ -1348,10 +1301,6 @@ body.light-off .instrument-visual .signal {
   }
   .hero-layout {
     gap: 60px;
-  }
-  .instrument-panel {
-    height: 420px;
-    margin-top: -158px;
   }
   .hero-copy {
     padding-top: 15px;
@@ -1405,24 +1354,11 @@ body.light-off .instrument-visual .signal {
   h1 {
     font-size: 62px;
   }
-  .instrument-panel {
-    height: 320px;
-    margin-top: -139px;
-  }
   .hero-copy > p {
     font-size: 15px;
   }
   .hero-copy > p.secondary-copy {
-    font-size: 11px;
-  }
-  .spec-label {
-    font-size: 5px;
-  }
-  .spec-left {
-    top: 105px;
-  }
-  .spec-right {
-    top: 203px;
+    font-size: 12px;
   }
   .principle {
     padding: 19px 16px;
@@ -1515,9 +1451,6 @@ body.light-off .instrument-visual .signal {
   }
   .instrument-visual {
     inset: 30px 25px;
-  }
-  .instrument-panel {
-    margin-top: 0;
   }
   .principle h2 {
     font-size: 14px;
@@ -1673,16 +1606,8 @@ body.light-off .instrument-visual .signal {
   .hero-footnote {
     margin-top: 10px;
   }
-  .instrument-panel {
-    margin: 0;
-    width: 100%;
-    height: 330px;
-  }
   .instrument-visual {
     inset: 25px 40px;
-  }
-  .spec-label {
-    font-size: var(--ui-type-scale-caption);
   }
   .section-divider {
     margin-top: 28px;
