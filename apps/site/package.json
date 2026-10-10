@@ -1,0 +1,14 @@
+{
+  "name": "@starkplane/site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Starkplane documentation and interactive design language workshop.",
+  "dependencies": {
+    "starkplane": "workspace:*"
+  },
+  "scripts": {
+    "build": "bun ../../scripts/build-site.mjs",
+    "check": "bun ../../node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
+  }
+}

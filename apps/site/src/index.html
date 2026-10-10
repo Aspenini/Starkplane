@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111314" />
+    <meta
+      name="description"
+      content="An experimental design language for interfaces engineered like physical instruments. Explore machined materials, precision geometry, and motion with mass."
+    />
+    <title>STARKPLANE / 01 — Interface Engineering Lab</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23111314'/%3E%3Cpath d='M8 8h24v8H16v16H8zm16 16h8v8h-8z' fill='%23d6ef79'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=0.1.0-starkplane" />
+    <script src="app.js?v=0.1.0-starkplane" type="module"></script>
+    <script type="module">if (new URLSearchParams(location.search).has('audit')) import('./audit.js');</script>
+  </head>
+  <body class="ui-theme">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <aside class="sidebar">
+      <a class="brand" href="#overview" title="Starkplane home" aria-labelledby="starkplane-name"
+        ><span class="brand-mark"><i></i><i></i><i></i></span
+        ><span id="starkplane-name"
+          >STARKPLANE<span class="brand-sub">ENGINEERING SYSTEM / 01</span></span
+        ></a
+      >
+      <div class="edition">
+        <span class="live-dot"></span> PROVISIONAL <span>v0.1.0</span>
+      </div>
+      <div class="nav-caption">EXPLORER</div>
+      <nav aria-label="Design language explorer">
+        <a href="#overview" data-view="overview" class="nav-link active"
+          ><span class="nav-icon">◫</span> Overview
+          <span class="nav-num">01</span></a
+        >
+        <a href="#materials" data-view="materials" class="nav-link"
+          ><span class="nav-icon">▱</span> Materials
+          <span class="nav-num">02</span></a
+        >
+        <a href="#motion" data-view="motion" class="nav-link"
+          ><span class="nav-icon">⌁</span> Motion
+          <span class="nav-num">03</span></a
+        >
+        <a href="#components" data-view="components" class="nav-link"
+          ><span class="nav-icon">⊞</span> Components
+          <span class="nav-num">04</span></a
+        >
+        <a href="#specification" data-view="specification" class="nav-link"><span class="nav-icon">≡</span> Specification <span class="nav-num">05</span></a>
+      </nav>
+      <div class="side-note">
+        <div class="small-label">DESIGN THESIS</div>
+        <p>Software with<br />physical conviction.</p>
+        <div class="note-line"></div>
+        <span>PRECISE. TACTILE. PURPOSEFUL.</span>
+      </div>
+      <div class="sidebar-bottom">
+        <button id="export-button" class="export-button">
+          <span>↓</span> Export design tokens <span>↗</span>
+        </button>
+        <div class="side-footer">
+          ENGINEERED FOR THE SCREEN<span>© 2026 / IN DEVELOPMENT</span>
+        </div>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb">
+          ENGINEERING LAB <span>/</span>
+          <strong id="breadcrumb">OVERVIEW</strong>
+        </div>
+        <div class="topbar-right">
+          <span class="system-status"
+            ><i class="live-dot"></i> SYSTEM NOMINAL</span
+          ><button
+            id="effects-button"
+            class="icon-button"
+            aria-label="Disable motion effects"
+            aria-pressed="true"
+            title="Toggle motion effects"
+          >
+            <span aria-hidden="true">⌁</span></button
+          ><span class="avatar">01</span>
+        </div>
+      </header>
+      <main id="content" tabindex="-1">
+        <div class="release-notice" role="note" aria-label="Release status">
+          <span>PRE–1.0.0 / PROVISIONAL</span>
+          <p>Everything is subject to change until <strong>v1.0.0</strong>.</p>
+        </div>
+        <section id="overview-view" class="view">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">
+                <span class="tiny-cross">+</span> A STUDY IN INTERFACE
+                ENGINEERING
+              </div>
+              <h1>Interfaces.<br /><span>Engineered.</span></h1>
+            </div>
+            <div class="release-stamp">
+              DESIGN SYSTEM<br /><strong>VOL. 001</strong
+              ><span>STARKPLANE / PRE–1.0</span>
+            </div>
+          </div>
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <p>
+                A new design language built around precision engineering,
+                machined materials, and motion with mass.
+              </p>
+              <p class="secondary-copy">
+                Imagine software that feels like an advanced physical
+                instrument. Every edge has intent. Every movement has a reason.
+              </p>
+              <button
+                class="ui-button ui-button--primary"
+                data-go="components"
+              >
+                Explore the system <span>↗</span></button
+              ><button class="text-button" data-go="motion">
+                Experience the motion <span>→</span>
+              </button>
+              <div class="hero-footnote">
+                <span class="mini-rule"></span> BUILT WITH INTENT. NOT ORNAMENT.
+              </div>
+            </div>
+            <div class="model-workspace">
+              <div class="model-toolbar">
+                <span>AX–01 <i>/</i> SPATIAL INSPECTION</span>
+                <div id="render-mode" class="ui-segmented" aria-label="Assembly rendering mode">
+                  <button
+                    data-render="blueprint" data-ui-value="blueprint"
+                    class="selected"
+                    aria-pressed="true"
+                  >
+                    Blueprint</button
+                  ><button data-render="material" data-ui-value="material" aria-pressed="false">
+                    Material
+                  </button>
+                </div>
+              </div>
+              <div class="instrument-panel blueprint" id="instrument-panel">
+                <div class="panel-corners"></div>
+                <div class="instrument-top">
+                  <span><i class="live-dot"></i> INTERACTIVE ASSEMBLY</span
+                  ><span id="render-label">WIREFRAME / LIVE</span>
+                </div>
+                <div class="instrument-grid"></div>
+                <div class="orbital-backdrop">
+                  <i></i><i></i><i></i><span class="orbit-marker">+</span>
+                </div>
+                <div class="scan-beam"></div>
+                <div class="instrument-visual" id="instrument-visual"></div>
+                <div class="model-annotation annotation-upper">
+                  <span>01 / OUTER CHASSIS</span><i></i
+                  ><small>EDGE PROFILE / 1 PX</small>
+                </div>
+                <div class="model-annotation annotation-lower">
+                  <span>03 / MOUNTING PLATE</span><i></i
+                  ><small>OFFSET / <b id="offset-readout">24.0</b> PX</small>
+                </div>
+                <div class="spec-coordinate">
+                  X <span id="coordinate-x">000.00</span><br />Y
+                  <span id="coordinate-y">000.00</span>
+                </div>
+                <div class="view-axis">
+                  <span>Z</span><i></i><span>Y</span><span>X</span>
+                </div>
+                <div class="instrument-bottom">
+                  <span>POINTER / SPATIAL INSPECTION</span
+                  ><span class="material-pill">UNIT / AX–01</span
+                  ><button
+                    id="rotate-button"
+                    class="text-button small"
+                    aria-pressed="false"
+                  >
+                    Actuate <span>↻</span>
+                  </button>
+                </div>
+              </div>
+              <div class="model-statusbar">
+                <span
+                  ><i class="live-dot"></i>
+                  <b id="layer-status">COMPLETE ASSEMBLY</b></span
+                ><span>PROJECTION / ORTHOGRAPHIC</span
+                ><span id="view-mode-status">MODE / WIREFRAME</span>
+              </div>
+              <div class="inspection-strip">
+                <div>
+                  <span>LAYERS VISIBLE</span
+                  ><strong id="visible-layers">03<span>/ 03</span></strong>
+                </div>
+                <div>
+                  <span>SEPARATION</span
+                  ><strong id="separation-readout">24.0<span>PX</span></strong>
+                </div>
+                <div>
+                  <span>RENDER ELEMENTS</span
+                  ><strong id="element-count">000<span>SVG</span></strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-divider">
+            <span>THE OPERATING PRINCIPLES</span
+            ><span>THREE RULES. ONE COHERENT SYSTEM.</span>
+          </div>
+          <div class="principles">
+            <button class="principle" data-go="materials">
+              <span class="principle-number">01 /</span>
+              <div class="principle-art geometry-art">
+                <i></i><i></i><i></i>
+              </div>
+              <h2>Precision, by default.</h2>
+              <p>
+                Sharp geometry. Measured spacing.<br />Nothing left to
+                approximation.
+              </p>
+              <span class="principle-link"
+                >Geometry & structure <span>↗</span></span
+              ></button
+            ><button class="principle" data-go="materials">
+              <span class="principle-number">02 /</span>
+              <div class="principle-art material-art">
+                <i></i><i></i><i></i>
+              </div>
+              <h2>Material has meaning.</h2>
+              <p>
+                Surfaces communicate hierarchy.<br />Light reveals function.
+              </p>
+              <span class="principle-link"
+                >Surface & illumination <span>↗</span></span
+              ></button
+            ><button class="principle" data-go="motion">
+              <span class="principle-number">03 /</span>
+              <div class="principle-art motion-art"><i></i><i></i><i></i></div>
+              <h2>Motion has mass.</h2>
+              <p>
+                Acceleration. Inertia. A deliberate stop.<br />Feedback you can
+                almost feel.
+              </p>
+              <span class="principle-link"
+                >Physics & response <span>↗</span></span
+              >
+            </button>
+          </div>
+          <div class="assembly-heading">
+            <div>
+              <div class="eyebrow">IN–001 / INSTRUMENT CONTROLS</div>
+              <h2>Inspect the construction.</h2>
+            </div>
+            <span>LIVE SPECIMEN / REV 0.1.0</span>
+          </div>
+          <div class="engineering-console">
+            <aside class="assembly-controls" aria-label="Assembly controls">
+              <div class="console-section-label">
+                01 / ASSEMBLY TREE <span>−</span>
+              </div>
+              <div class="assembly-root">
+                <span>⌘</span> AX–01 <small>INSTRUMENT</small>
+              </div>
+              <div class="assembly-tree ui-segmented" id="assembly-tree" aria-label="Assembly layers">
+                <button
+                  class="layer-row selected"
+                  data-layer="all" data-ui-value="all"
+                  aria-pressed="true"
+                >
+                  <span class="layer-node"></span> Complete assembly
+                  <span>03</span>
+                </button>
+                <button
+                  class="layer-row"
+                  data-layer="cover" data-ui-value="cover"
+                  aria-pressed="false"
+                >
+                  <span class="layer-node"></span> Outer chassis <span>01</span>
+                </button>
+                <button
+                  class="layer-row"
+                  data-layer="core" data-ui-value="core"
+                  aria-pressed="false"
+                >
+                  <span class="layer-node"></span> Radial core <span>02</span>
+                </button>
+                <button
+                  class="layer-row"
+                  data-layer="base" data-ui-value="base"
+                  aria-pressed="false"
+                >
+                  <span class="layer-node"></span> Mounting plate
+                  <span>03</span>
+                </button>
+              </div>
+              <div class="console-section-label">
+                02 / VIEW PARAMETERS <span>−</span>
+              </div>
+              <label class="range-label" for="separation"
+                >LAYER SEPARATION
+                <output id="separation-output">40%</output></label
+              ><input
+                id="separation"
+                class="ui-range" type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="40"
+              />
+              <label class="range-label" for="detail"
+                >LINE INTENSITY <output id="detail-output">72%</output></label
+              ><input
+                id="detail"
+                class="ui-range" type="range"
+                min="30"
+                max="100"
+                step="1"
+                value="72"
+              />
+              <button
+                class="ui-button ui-button--secondary full"
+                id="reassemble-button"
+              >
+                Reassemble <span>↙</span>
+              </button>
+              <div class="console-section-label control-label">
+                03 / CONSTRUCTION <span>−</span>
+              </div>
+              <dl class="console-specs">
+                <div>
+                  <dt>TOPOLOGY</dt>
+                  <dd>RADIAL / 08</dd>
+                </div>
+                <div>
+                  <dt>GEOMETRY</dt>
+                  <dd>SVG / VECTOR</dd>
+                </div>
+                <div>
+                  <dt>EDGE</dt>
+                  <dd>1 PX</dd>
+                </div>
+                <div>
+                  <dt>MOTION</dt>
+                  <dd>SPRING / DAMPER</dd>
+                </div>
+              </dl>
+              <div class="console-control-footer">
+                <span class="bracket-symbol">⌜</span>
+                <p>
+                  Every layer has a purpose.<br />Every signal has a source.
+                </p>
+              </div>
+            </aside>
+            <aside class="telemetry-panel" aria-label="Inspection telemetry">
+              <div class="console-section-label">
+                04 / INSPECTION <span>LIVE</span>
+              </div>
+              <div class="inspection-header">
+                <span class="target-icon">⌖</span
+                ><span
+                  >MODEL STATUS<strong id="model-health"
+                    >Ready to inspect</strong
+                  ></span
+                >
+              </div>
+              <div class="trace-caption">
+                <span>SEPARATION RESPONSE</span><span>PX / FRAME</span>
+              </div>
+              <svg
+                class="response-trace"
+                viewBox="0 0 220 85"
+                role="img"
+                aria-label="Layer separation response trace"
+              >
+                <path
+                  class="trace-grid"
+                  d="M0 20H220M0 42H220M0 65H220M40 0V85M80 0V85M120 0V85M160 0V85M200 0V85"
+                />
+                <path id="layer-trace" d="M0 51H220" />
+              </svg>
+              <div class="trace-scale">
+                <span>0</span><span>VIEW RESPONSE</span><span>60</span>
+              </div>
+              <div class="telemetry-fields">
+                <div>
+                  <span>RENDER MODE</span
+                  ><strong id="mode-telemetry">BLUEPRINT</strong>
+                </div>
+                <div>
+                  <span>LINE INTENSITY</span
+                  ><strong id="intensity-telemetry">72%</strong>
+                </div>
+                <div>
+                  <span>SELECTED LAYER</span
+                  ><strong id="selection-telemetry">ALL</strong>
+                </div>
+              </div>
+              <button
+                class="ui-button ui-button--primary full"
+                id="analyze-button"
+              >
+                Run inspection <span>⌁</span>
+              </button>
+              <div class="console-section-label activity-label">
+                05 / EVENT STREAM <span>REC</span>
+              </div>
+              <ol
+                class="activity-stream"
+                id="activity-stream"
+                aria-label="Assembly event stream"
+              >
+                <li>
+                  <time>001</time><span>Assembly geometry loaded</span><i>OK</i>
+                </li>
+                <li>
+                  <time>002</time><span>Blueprint view initialized</span
+                  ><i>OK</i>
+                </li>
+                <li>
+                  <time>003</time><span>Awaiting inspection</span><i>—</i>
+                </li>
+              </ol>
+              <p class="telemetry-note">
+                Readouts describe this visual model.<br />No external systems
+                connected.
+              </p>
+            </aside>
+          </div>
+          <div class="workspace-bottom">
+            <span
+              ><i class="live-dot"></i> INPUT CHANNEL / POINTER + KEYBOARD</span
+            ><span>STARKPLANE / PRE–1.0 <i>·</i> ALL SPECIFICATIONS PROVISIONAL</span
+            ><button id="reset-workspace" class="text-button">
+              Reset workspace <span>↺</span>
+            </button>
+          </div>
+          <div class="bottom-line">
+            <span>LESS DECORATION. MORE DEFINITION.</span
+            ><span>SCROLL INTO THE DETAILS <span>↓</span></span>
+          </div>
+          <div class="overview-details">
+            <div class="eyebrow">THE CONSTRUCTION STANDARD</div>
+            <h2>Assembled, not decorated.</h2>
+            <p>
+              Depth comes from seams, bevels, and recessed surfaces. Color is
+              reserved for information. Geometry stays exact. Explore the
+              specimens to see the rules in action.
+            </p>
+            <div class="standards">
+              <div><strong>8 px</strong><span>BASE SPACING UNIT</span></div>
+              <div><strong>1 px</strong><span>STRUCTURAL SEAMS</span></div>
+              <div><strong>8 px</strong><span>ACTION CHAMFER</span></div>
+              <div><strong>3</strong><span>SURFACE DEPTHS</span></div>
+            </div>
+          </div>
+        </section>
+        <section id="materials-view" class="view" hidden>
+          <div class="subpage-heading">
+            <div class="eyebrow">02 / MATERIAL STUDIES</div>
+            <h1>Surface is<br /><span>information.</span></h1>
+            <p>
+              Opaque, tactile, and deliberately layered. Choose a material to
+              inspect its construction.
+            </p>
+          </div>
+          <div class="material-lab">
+            <div class="material-preview" id="material-preview">
+              <div class="small-label">
+                MATERIAL SPECIMEN / <span id="material-code">M–01</span>
+              </div>
+              <div class="material-block" id="material-block">
+                <div class="block-face">
+                  <span>01</span>
+                  <div class="block-notch"></div>
+                  <div class="block-line"></div>
+                </div>
+              </div>
+              <div class="preview-bottom">
+                <span>MOVE TO INSPECT THE SURFACE</span
+                ><span id="material-finish">MATTE / MICROTEXTURED</span>
+              </div>
+            </div>
+            <div class="material-options">
+              <button
+                class="material-option selected"
+                data-material="graphite"
+                aria-pressed="true"
+              >
+                <span class="swatch graphite"></span
+                ><span
+                  ><strong>Anodized graphite</strong
+                  ><small>FOUNDATION / M–01</small></span
+                ><span class="selection-marker">↗</span></button
+              ><button
+                class="material-option"
+                data-material="titanium"
+                aria-pressed="false"
+              >
+                <span class="swatch titanium"></span
+                ><span
+                  ><strong>Brushed titanium</strong
+                  ><small>INTERACTION / M–02</small></span
+                ><span class="selection-marker">↗</span></button
+              ><button
+                class="material-option"
+                data-material="ceramic"
+                aria-pressed="false"
+              >
+                <span class="swatch ceramic"></span
+                ><span
+                  ><strong>Technical ceramic</strong
+                  ><small>INSTRUMENT / M–03</small></span
+                ><span class="selection-marker">↗</span>
+              </button>
+              <div class="material-description">
+                <div class="small-label">ENGINEERING NOTE</div>
+                <p id="material-description">
+                  The foundation layer. A fine, matte grain absorbs light while
+                  a single bright edge makes the boundary unmistakable.
+                </p>
+                <dl>
+                  <div>
+                    <dt>DEPTH</dt>
+                    <dd id="material-depth">00 / FOUNDATION</dd>
+                  </div>
+                  <div>
+                    <dt>EDGE</dt>
+                    <dd>1 PX / BEVELED</dd>
+                  </div>
+                  <div>
+                    <dt>GEOMETRY</dt>
+                    <dd>8 PX / CHAMFER</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="section-divider">
+            <span>ILLUMINATION PALETTE</span><span>LIGHT IS A SIGNAL.</span>
+          </div>
+          <div class="palette">
+            <button data-color="#d6ef79" class="color-spec">
+              <span style="background: #d6ef79"></span
+              ><strong>Signal lime</strong><small>ACTION / #D6EF79</small
+              ><em>Click to copy</em></button
+            ><button data-color="#dfa86c" class="color-spec">
+              <span style="background: #dfa86c"></span><strong>Amber</strong
+              ><small>ATTENTION / #DFA86C</small><em>Click to copy</em></button
+            ><button data-color="#eceee9" class="color-spec">
+              <span style="background: #eceee9"></span><strong>Chalk</strong
+              ><small>CONTENT / #ECEEE9</small><em>Click to copy</em></button
+            ><button data-color="#8c9599" class="color-spec">
+              <span style="background: #8c9599"></span><strong>Steel</strong
+              ><small>SECONDARY / #8C9599</small><em>Click to copy</em>
+            </button>
+          </div>
+        </section>
+        <section id="motion-view" class="view" hidden>
+          <div class="subpage-heading">
+            <div class="eyebrow">03 / MOTION ENGINE</div>
+            <h1>Nothing moves<br /><span>without reason.</span></h1>
+            <p>
+              Motion with a physical response. Tune the spring, apply an
+              impulse, and feel the difference.
+            </p>
+          </div>
+          <div class="motion-lab">
+            <div class="motion-stage">
+              <div class="stage-top">
+                <span class="small-label">DISPLACEMENT / LIVE SIMULATION</span
+                ><span id="motion-state" class="small-label accent">READY</span>
+              </div>
+              <div class="motion-track">
+                <span class="track-label left">00</span
+                ><span class="track-label right">100</span>
+                <div class="target-marker"></div>
+                <button
+                  class="motion-object"
+                  id="motion-object"
+                  aria-label="Apply motion impulse to specimen 01"
+                >
+                  <span>01</span><i></i>
+                </button>
+              </div>
+              <svg
+                id="motion-graph"
+                viewBox="0 0 600 120"
+                role="img"
+                aria-label="Live spring displacement graph"
+              >
+                <path
+                  class="graph-grid"
+                  d="M0 30H600M0 60H600M0 90H600M100 0V120M200 0V120M300 0V120M400 0V120M500 0V120"
+                />
+                <path id="graph-path" d="M0 100H600" />
+              </svg>
+              <div class="motion-stage-bottom">
+                <span>DISPLACEMENT <strong id="displacement">0.00</strong></span
+                ><span>VELOCITY <strong id="velocity">0.00</strong></span
+                ><span>MODEL <strong>SPRING / DAMPER</strong></span>
+              </div>
+            </div>
+            <div class="motion-controls">
+              <div class="small-label">RESPONSE PROFILE</div>
+              <div id="motion-presets" class="ui-segmented" aria-label="Motion presets">
+                <button
+                  data-preset="precise" data-ui-value="precise"
+                  class="selected"
+                  aria-pressed="true"
+                >
+                  Precise</button
+                ><button data-preset="weighted" data-ui-value="weighted" aria-pressed="false">
+                  Weighted</button
+                ><button data-preset="elastic" data-ui-value="elastic" aria-pressed="false">
+                  Elastic
+                </button>
+              </div>
+              <label class="range-label" for="mass"
+                >MASS <output id="mass-output">1.0 kg</output></label
+              ><input
+                id="mass"
+                class="ui-range" type="range"
+                min="0.5"
+                max="4"
+                step="0.1"
+                value="1"
+              /><label class="range-label" for="stiffness"
+                >STIFFNESS <output id="stiffness-output">180 N/m</output></label
+              ><input
+                id="stiffness"
+                class="ui-range" type="range"
+                min="40"
+                max="300"
+                step="10"
+                value="180"
+              /><label class="range-label" for="damping"
+                >DAMPING <output id="damping-output">24 Ns/m</output></label
+              ><input
+                id="damping"
+                class="ui-range" type="range"
+                min="4"
+                max="50"
+                step="1"
+                value="24"
+              /><button
+                class="ui-button ui-button--primary full"
+                id="impulse-button"
+              >
+                Apply impulse <span>→</span></button
+              ><button class="text-button full" id="reset-motion">
+                Reset calibration <span>↺</span>
+              </button>
+              <p class="control-note">
+                Feedback is immediate.<br />Movement earns its settling time.
+              </p>
+            </div>
+          </div>
+          <div class="motion-rules">
+            <div>
+              <span>01 / INITIATE</span>
+              <h2>Respond instantly.</h2>
+              <p>Acknowledge the action before the object travels.</p>
+            </div>
+            <div>
+              <span>02 / TRAVEL</span>
+              <h2>Respect the weight.</h2>
+              <p>Acceleration follows the object's mass and spring.</p>
+            </div>
+            <div>
+              <span>03 / SETTLE</span>
+              <h2>Arrive with intent.</h2>
+              <p>Damping resolves the movement into a precise resting state.</p>
+            </div>
+          </div>
+        </section>
+        <section id="components-view" class="view" hidden>
+          <div class="subpage-heading">
+            <div class="eyebrow">04 / COMPONENT LIBRARY</div>
+            <h1>Built to<br /><span>be operated.</span></h1>
+            <p>
+              A complete provisional vocabulary of controls, forms, navigation, feedback, and structured data. Operate each specimen to explore its behavior.
+            </p>
+          </div>
+          <div class="component-grid">
+            <article class="component-card">
+              <div class="component-title">
+                <span>01 / ACTUATION</span><span>BUTTONS</span>
+              </div>
+              <div class="component-demo button-demo">
+                <button
+                  id="engage-button"
+                  class="ui-button ui-button--primary"
+                >
+                  Engage system <span>↗</span></button
+                ><button
+                  id="standby-button"
+                  class="ui-button ui-button--secondary"
+                >
+                  Standby <span>◌</span></button
+                ><span class="small-label" id="engage-status" role="status"
+                  >SYSTEM IN STANDBY</span
+                >
+              </div>
+              <p>
+                An 8px chamfer marks the direction of action. A recessed press
+                makes the response tangible.
+              </p>
+            </article>
+            <article class="component-card">
+              <div class="component-title">
+                <span>02 / STATE</span><span>TOGGLES</span>
+              </div>
+              <div class="component-demo">
+                <label class="toggle-row ui-switch"
+                  ><span
+                    >Precision mode<small>Maintain exact alignment</small></span
+                  ><input
+                    id="precision-toggle"
+                    type="checkbox"
+                    checked
+                    role="switch" /><span class="ui-switch__track"></span></label
+                ><label class="toggle-row ui-switch"
+                  ><span
+                    >Instrument lighting<small
+                      >Illuminate active surfaces</small
+                    ></span
+                  ><input
+                    id="lighting-toggle"
+                    type="checkbox"
+                    checked
+                    role="switch" /><span class="ui-switch__track"></span
+                ></label>
+                <div class="small-label" id="toggle-readout" role="status">
+                  ALIGNMENT LOCKED / LIGHT ACTIVE
+                </div>
+              </div>
+              <p>
+                A mechanical slide with a clear resting position. State is
+                always visible, with or without color.
+              </p>
+            </article>
+            <article class="component-card">
+              <div class="component-title">
+                <span>03 / CALIBRATION</span><span>INPUT</span>
+              </div>
+              <div class="component-demo">
+                <label class="range-label" for="frequency"
+                  >OPERATING FREQUENCY
+                  <output id="frequency-output">60 Hz</output></label
+                ><input
+                  class="ui-range" type="range"
+                  id="frequency"
+                  min="20"
+                  max="120"
+                  value="60"
+                  step="1"
+                />
+                <div class="scale-labels">
+                  <span>20 Hz</span><span>70 Hz</span><span>120 Hz</span>
+                </div>
+                <label class="range-label" for="unit-name">INSTRUMENT ID</label>
+                <div class="ui-field">
+                  <input
+                    id="unit-name" class="ui-field__input" required aria-describedby="unit-hint"
+                    maxlength="24"
+                    value="UNIT–001"
+                    aria-label="Instrument ID"
+                  /><span id="input-check" class="ui-field__error" hidden></span><span id="unit-hint" class="ui-field__hint">Use a unique identifier, up to 24 characters.</span>
+                </div>
+              </div>
+              <p>
+                Monospaced values, explicit units, and a measured scale keep the
+                precision visible.
+              </p>
+            </article>
+            <article class="component-card">
+              <div class="component-title">
+                <span>04 / FEEDBACK</span><span>STATUS</span>
+              </div>
+              <div class="component-demo">
+                <div class="ui-status" role="status">
+                  <div><strong id="diagnostic-label" class="ui-status__title">All systems nominal</strong><span id="diagnostic-detail" class="ui-status__detail"
+                    >Calibration verified. Ready for operation.</span></div>
+                </div>
+                <button
+                  class="ui-button ui-button--secondary full"
+                  id="diagnostics-button"
+                >
+                  Run diagnostics <span>⌁</span>
+                </button>
+              </div>
+              <p>
+                Restrained illumination communicates system health. A signal,
+                never a spectacle.
+              </p>
+            </article>
+          </div>
+
+          <div class="section-label catalogue-divider">APPLICATION COMPONENTS / PUBLIC LIBRARY</div>
+          <div class="component-grid">
+            <article class="component-card"><div class="component-title"><span>05 / NATIVE FORMS</span><span>CHOICES</span></div>
+              <form id="specimen-form" class="ui-stack" novalidate>
+                <label class="ui-field"><span class="ui-field__label">Contact email</span><input id="form-email" class="ui-field__input" type="email" autocomplete="email" required aria-describedby="email-hint" placeholder="engineer@example.com"><span id="email-hint" class="ui-field__hint">Required for this local validation example.</span><span id="email-error" class="ui-field__error" hidden></span></label>
+                <label class="ui-field"><span class="ui-field__label">Operating profile</span><select class="ui-field__input" name="profile"><option>Precision</option><option>Weighted</option><option>Elastic</option></select></label>
+                <label class="ui-field"><span class="ui-field__label">Notes</span><textarea class="ui-field__input" name="notes" placeholder="Assembly notes"></textarea></label>
+                <fieldset class="ui-fieldset ui-stack"><legend>Deployment target</legend><label class="ui-choice"><input type="radio" name="target" value="desktop" checked>Desktop</label><label class="ui-choice"><input type="radio" name="target" value="embedded">Embedded</label><label class="ui-choice"><input type="checkbox" name="telemetry">Enable local telemetry</label><label class="ui-choice"><input id="partial-selection" type="checkbox">Partial selection</label></fieldset>
+                <div class="ui-cluster"><button class="ui-button ui-button--primary" type="submit">Validate form</button><button class="ui-button ui-button--secondary" type="reset">Reset</button></div>
+                <p id="form-result" class="ui-text ui-text--muted" role="status">No data is sent or saved.</p>
+              </form>
+            </article>
+            <article class="component-card"><div class="component-title"><span>06 / INTERACTION STATES</span><span>CONTROLS</span></div><div class="ui-stack">
+              <div class="ui-cluster"><button class="ui-button ui-button--primary" disabled>Unavailable</button><button class="ui-button ui-button--secondary" aria-busy="true" disabled><span class="ui-spinner" aria-hidden="true"></span>Processing</button><button class="ui-button ui-button--tertiary" type="button" id="tertiary-action">Tertiary action</button><button type="button" class="ui-button ui-button--danger" id="discard-draft">Clear local draft</button></div>
+              <label class="ui-field"><span class="ui-field__label">Read-only identifier</span><input class="ui-field__input" value="AX–01" readonly></label>
+              <label class="ui-field"><span class="ui-field__label">Disabled input</span><input class="ui-field__input" value="Unavailable" disabled></label>
+              <label class="ui-switch">Disabled switch<input type="checkbox" role="switch" disabled><span class="ui-switch__track"></span></label>
+              <div class="ui-cluster" id="icon-examples"></div>
+              <p class="ui-text ui-text--muted">Tab through enabled controls to inspect the focus indication. Disabled controls retain native behavior.</p>
+            </div></article>
+            <article class="component-card"><div class="component-title"><span>07 / LAYERED CONTENT</span><span>TABS</span></div>
+              <div class="ui-tabs" id="example-tabs"><div data-ui-tablist class="ui-tabs__list" aria-label="Instrument details"><button type="button" data-ui-tab="geometry">Geometry</button><button type="button" data-ui-tab="materials">Materials</button><button type="button" data-ui-tab="history" disabled>History</button></div>
+              <div data-ui-panel="geometry"><p class="ui-text">Opposing chamfers establish direction. Rectangular surfaces keep the structure clear.</p></div><div data-ui-panel="materials"><p class="ui-text">Graphite, restrained edge highlights, and meaningful illumination.</p></div><div data-ui-panel="history">Unavailable history.</div></div>
+              <p class="ui-text ui-text--muted">Left and Right arrows change tabs; Home and End reach the first and last available tab.</p>
+            </article>
+            <article class="component-card"><div class="component-title"><span>08 / PROGRESSIVE DISCLOSURE</span><span>EXPANSION</span></div><div class="ui-stack">
+              <div class="ui-disclosure"><button type="button" id="disclosure-trigger" class="ui-disclosure__trigger">Construction notes</button><div id="disclosure-content" class="ui-disclosure__content" hidden><p class="ui-text">A single-level disclosure preserves context without navigating away.</p></div></div>
+              <details class="ui-disclosure"><summary>Native disclosure</summary><div class="ui-disclosure__content">This version uses native details and summary, without JavaScript.</div></details>
+            </div></article>
+            <article class="component-card"><div class="component-title"><span>09 / COMMAND SURFACES</span><span>MENU + TOOLTIP</span></div><div class="ui-cluster">
+              <span class="ui-popup"><button type="button" id="menu-trigger" class="ui-button ui-button--secondary">Instrument actions <span aria-hidden="true">⌄</span></button><div id="example-menu" class="ui-menu" hidden><button type="button" data-ui-menu-value="inspect">Inspect geometry</button><button type="button" data-ui-menu-value="calibrate">Calibrate instrument</button><button type="button" data-ui-menu-value="export" disabled>Export telemetry</button></div></span>
+              <span class="ui-popup"><button type="button" id="tooltip-trigger" class="ui-button ui-button--icon ui-button--secondary" aria-label="About command menus"></button><span class="ui-tooltip" id="example-tooltip" hidden>Use arrow keys to move between commands and Escape to close.</span></span>
+            </div><p class="ui-text ui-text--muted specimen-note">Selection is reported as local feedback. Tooltips appear on hover or keyboard focus.</p></article>
+            <article class="component-card"><div class="component-title"><span>10 / FOCUSED TASK</span><span>DIALOG</span></div><div class="ui-stack"><p class="ui-text">A modal makes the background inert and returns focus to its opener on close.</p><button type="button" id="dialog-trigger" class="ui-button ui-button--primary">Open calibration dialog</button></div>
+              <dialog class="ui-dialog" id="example-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><div class="ui-stack"><h2 id="dialog-title" class="ui-text ui-text--heading">Calibrate instrument</h2><p id="dialog-description" class="ui-text ui-text--muted">This local specimen changes no external system.</p><label class="ui-field"><span class="ui-field__label">Calibration label</span><input id="dialog-input" class="ui-field__input" value="AX–01 / Precision"></label></div><div class="ui-dialog__actions"><button type="button" class="ui-button ui-button--secondary" data-ui-close>Cancel</button><button type="button" id="dialog-confirm" class="ui-button ui-button--primary">Confirm calibration</button></div></dialog>
+            </article>
+            <article class="component-card"><div class="component-title"><span>11 / SYSTEM FEEDBACK</span><span>STATUS</span></div><div class="ui-stack">
+              <div class="ui-status"><div><strong class="ui-status__title">Ready</strong><span class="ui-status__detail">All components available.</span></div></div><div class="ui-status ui-status--attention">Attention: calibration due.</div><div class="ui-status ui-status--error">Error: identifier required.</div><div class="ui-status ui-status--info">Information: local specimen only.</div>
+              <label class="ui-field"><span class="ui-field__label">Calibration progress: 64%</span><progress class="ui-progress" max="100" value="64">64%</progress></label><label class="ui-field"><span class="ui-field__label">Waiting for calibration</span><progress class="ui-progress">Waiting</progress></label>
+              <div class="ui-cluster"><span class="ui-badge ui-badge--action">READY</span><span class="ui-badge ui-badge--attention">PENDING</span><span class="ui-badge ui-badge--error">FAILED</span></div>
+            </div></article>
+            <article class="component-card"><div class="component-title"><span>12 / STRUCTURED DATA</span><span>TABLE</span></div><div class="ui-table-region" tabindex="0" role="region" aria-label="Instrument inventory"><table class="ui-table"><caption>Local instrument inventory</caption><thead><tr><th scope="col">Instrument</th><th scope="col">Profile</th><th scope="col">State</th></tr></thead><tbody><tr><th scope="row">AX–01</th><td>Precision</td><td>Ready</td></tr><tr><th scope="row">AX–02</th><td>Weighted</td><td>Pending</td></tr><tr><th scope="row">AX–03</th><td>Elastic</td><td>Ready</td></tr></tbody></table></div></article>
+            <article class="component-card"><div class="component-title"><span>13 / WAYFINDING</span><span>NAVIGATION</span></div><div class="ui-stack"><nav aria-label="Example breadcrumb"><ol class="ui-breadcrumbs"><li><a class="ui-link" href="#overview">Workshop</a></li><li><a class="ui-link" href="#components" aria-current="page">Components</a></li></ol></nav><nav class="ui-nav" aria-label="Example section navigation"><a href="#components" aria-current="page">Components</a><a href="#specification">Specification</a></nav></div></article>
+            <article class="component-card"><div class="component-title"><span>14 / ABSENT DATA</span><span>EMPTY STATE</span></div><div class="ui-empty"><h2 class="ui-text ui-text--title">No readings yet</h2><p class="ui-text ui-text--muted">Inspect an assembly to collect its first local reading.</p><button type="button" class="ui-button ui-button--secondary" data-go="overview">Go to assembly</button></div></article>
+          </div>
+        </section>
+        <section id="specification-view" class="view" hidden><div class="page-heading"><div><div class="eyebrow">PROVISIONAL / v0.1.0</div><h1>Specification.</h1></div></div><article class="spec-content"><!-- STARKPLANE_SPEC --></article></section>
+        <footer class="main-footer">
+          <span>STARKPLANE / 01 <i></i> INTERFACE ENGINEERING LAB</span
+          ><button id="export-mobile" class="export-button mobile-export">
+            <span>↓</span> Export design tokens <span>↗</span></button
+          ><span>ALL SPECIFICATIONS PROVISIONAL UNTIL v1.0.0.</span>
+        </footer>
+
+      </main>
+    </div>
+    <div class="feedback-shell"><div class="ui-toast" id="toast"></div><button type="button" id="dismiss-feedback" class="ui-button ui-button--icon ui-button--secondary" aria-label="Dismiss status message"><span aria-hidden="true">×</span></button></div>
+  </body>
+</html>

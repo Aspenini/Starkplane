@@ -1,0 +1,27 @@
+[
+  {
+    "scroll": 720,
+    "view": "#overview",
+    "width": 720
+  },
+  {
+    "scroll": 720,
+    "view": "#materials",
+    "width": 720
+  },
+  {
+    "scroll": 720,
+    "view": "#motion",
+    "width": 720
+  },
+  {
+    "scroll": 720,
+    "view": "#components",
+    "width": 720
+  },
+  {
+    "scroll": 720,
+    "view": "#specification",
+    "width": 720
+  }
+]

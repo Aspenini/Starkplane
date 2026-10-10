@@ -1,0 +1,29 @@
+{
+  "name": "starkplane-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Starkplane design language, implementations, and documentation site. Provisional until v1.0.0.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun run build && bun scripts/serve.mjs",
+    "build": "bun run build:site",
+    "build:web": "bun run --cwd packages/web build",
+    "build:site": "bun run --cwd apps/site build",
+    "check": "bun run build && bun run --cwd packages/web check && bun run --cwd apps/site check && bun run --cwd packages/web check:consumer",
+    "test": "bun run build && bun run --cwd packages/web check:consumer && bun run --cwd packages/web test:unit",
+    "pack:local": "bun run --cwd packages/web pack:local"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.0",
+    "esbuild": "^0.25.0",
+    "happy-dom": "^20.14.6",
+    "marked": "^18.1.0",
+    "sass": "^1.93.0",
+    "typescript": "^5.9.0"
+  },
+  "packageManager": "bun@1.4.0"
+}

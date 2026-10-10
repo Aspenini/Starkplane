@@ -1,0 +1,70 @@
+@use "pkg:starkplane/scss" as ui;
+@use "layout";
+@use "console";
+@include ui.styles;
+
+// Site-only aliases preserve the prototype layout while sharing library tokens.
+:root {
+  @include ui.theme;
+  --base: var(--ui-color-foundation);
+  --surface: var(--ui-color-surface);
+  --raised: var(--ui-color-raised);
+  --recess: var(--ui-color-recess);
+  --seam: var(--ui-color-seam);
+  --text: var(--ui-color-content);
+  --muted: var(--ui-color-secondary);
+  --accent: var(--ui-color-action);
+  --amber: var(--ui-color-attention);
+}
+.instrument-visual.ui-instrument {
+  position: absolute;
+  height: auto;
+}
+.instrument-visual.ui-instrument svg {
+  position: absolute;
+}
+
+// Site composition only; component geometry, colors, focus, and states come from the package.
+.toggle-row { justify-content: space-between; }
+.ui-segmented { flex-wrap: wrap; }
+#assembly-tree { display: flex; flex-direction: column; }
+#assembly-tree button { width: 100%; }
+#motion-presets { width: 100%; margin: 16px 0 24px; box-sizing: border-box; }
+#motion-presets button { flex: 1; }
+.catalogue-divider { margin: 32px 0 24px; }
+.component-card > .ui-stack, .component-card > form, .component-card > .ui-tabs,
+.component-card > .ui-cluster, .component-card > .ui-table-region,
+.component-card > .ui-empty { margin: 24px; }
+.component-card > .ui-text { margin: 24px; }
+.component-card { min-width: 0; }
+.specimen-note { margin: 16px 24px; }
+.feedback-shell { position: fixed; bottom: 16px; right: 16px; display: flex; gap: 4px; align-items: flex-start; z-index: 40; max-width: calc(100vw - 32px); }
+.feedback-shell .ui-toast { position: static; min-width: 0; }
+.feedback-shell:not(:has([data-ui-visible="true"])) { visibility: hidden; }
+.spec-content { max-width: 1000px; line-height: 1.75; font-size: 14px; }
+.spec-content h1 { font-size: 28px; }
+.spec-content h2 { font-size: 24px; margin-top: 48px; font-weight: 500; }
+.spec-content h3 { font-size: 18px; margin-top: 32px; font-weight: 500; }
+.spec-content a { color: var(--ui-color-action); text-decoration: underline; }
+.spec-content pre { overflow: auto; padding: 16px; background: var(--ui-color-recess); }
+.spec-content code { font: 12px var(--ui-font-instrument); }
+.spec-content .ui-table-region { margin: 24px 0; }
+.spec-content th, .spec-content td { min-width: 120px; }
+@media (max-width: 700px) {
+  .component-card > .ui-stack, .component-card > form, .component-card > .ui-tabs,
+  .component-card > .ui-cluster, .component-card > .ui-table-region, .component-card > .ui-empty { margin: 16px; }
+}
+
+footer, footer > span { color: var(--ui-color-secondary); font-size: 11px; }
+
+.nav-num, .side-note > span { color: var(--ui-color-secondary); }
+.component-card { background: var(--ui-color-surface); }
+.nav-num { opacity: 1; }
+.release-stamp, .release-stamp > span, .hero-footnote,
+.section-divider > span:last-child, .bottom-line, .color-spec em,
+.control-note, .scale-labels, .component-title > span:last-child {
+  color: var(--ui-color-secondary);
+}
+
+.side-footer, .side-footer > span { color: var(--ui-color-secondary); opacity: 1; }
+.spec-content pre:focus-visible { @include ui.focus-ring; }

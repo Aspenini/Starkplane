@@ -1,0 +1,92 @@
+[
+  {
+    "view": "Overview",
+    "width": 320,
+    "height": 760,
+    "content": 320
+  },
+  {
+    "view": "Materials",
+    "width": 320,
+    "height": 760,
+    "content": 320
+  },
+  {
+    "view": "Motion",
+    "width": 320,
+    "height": 760,
+    "content": 320
+  },
+  {
+    "view": "Components",
+    "width": 320,
+    "height": 760,
+    "content": 320
+  },
+  {
+    "view": "Specification",
+    "width": 320,
+    "height": 760,
+    "content": 320
+  },
+  {
+    "view": "Overview",
+    "width": 768,
+    "height": 960,
+    "content": 768
+  },
+  {
+    "view": "Materials",
+    "width": 768,
+    "height": 960,
+    "content": 768
+  },
+  {
+    "view": "Motion",
+    "width": 768,
+    "height": 960,
+    "content": 768
+  },
+  {
+    "view": "Components",
+    "width": 768,
+    "height": 960,
+    "content": 768
+  },
+  {
+    "view": "Specification",
+    "width": 768,
+    "height": 960,
+    "content": 768
+  },
+  {
+    "view": "Overview",
+    "width": 1440,
+    "height": 960,
+    "content": 1440
+  },
+  {
+    "view": "Materials",
+    "width": 1440,
+    "height": 960,
+    "content": 1440
+  },
+  {
+    "view": "Motion",
+    "width": 1440,
+    "height": 960,
+    "content": 1440
+  },
+  {
+    "view": "Components",
+    "width": 1440,
+    "height": 960,
+    "content": 1440
+  },
+  {
+    "view": "Specification",
+    "width": 1440,
+    "height": 960,
+    "content": 1440
+  }
+]

@@ -1,0 +1,30 @@
+# Normalize text to LF across platforms; preserve binary assets byte for byte.
+* text=auto eol=lf
+
+*.ts text
+*.mjs text
+*.js text
+*.scss text
+*.css text
+*.html text
+*.json text
+*.md text
+*.yml text
+*.yaml text
+*.svg text
+bun.lock text
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+*.tgz binary
+*.gz binary
+*.zip binary

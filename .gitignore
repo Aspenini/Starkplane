@@ -1,0 +1,34 @@
+# Dependencies and build output
+node_modules/
+packages/web/lib/
+**/dist/
+artifacts/
+packages/web/docs/
+coverage/
+*.tsbuildinfo
+
+# Local caches, logs, and archives
+.cache/
+.sass-cache/
+.bun/
+*.log
+*.tar.gz
+*.tgz
+
+# Local environment and hosting state
+.env
+.env.*
+!.env.example
+!.env.*.example
+.openai/
+
+# Editor and operating system files
+.idea/
+.vscode/
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.0"
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+      - name: Build and check types
+        run: bun run check
+      - name: Test library behavior
+        run: bun run --cwd packages/web test:unit
+      - name: Check generated references
+        run: git diff --exit-code -- docs/tokens.md packages/web/src/styles/_generated.scss
+      - name: Check whitespace
+        run: git diff --check
+      - name: Verify local packing
+        run: bun run pack:local

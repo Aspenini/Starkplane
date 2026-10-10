@@ -1,0 +1,337 @@
+@use "theme" as t;
+@use "application";
+
+// Explicit mixin: importing Sass helpers alone never emits component CSS.
+@mixin styles {
+  .ui-theme {
+    @include t.theme;
+    color: t.token("color-content");
+    font-family: t.token("font-display");
+    color-scheme: dark;
+  }
+  .ui-button,
+  .ui-panel,
+  .ui-field,
+  .ui-segmented,
+  .ui-switch,
+  .ui-instrument {
+    box-sizing: border-box;
+  }
+  .ui-button {
+    min-height: t.token("size-target");
+    padding: 0 t.token("spacing-control");
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: t.token("spacing-panel");
+    border: t.token("geometry-seam-width") solid t.token("color-boundary");
+    border-radius: t.token("geometry-corner-radius");
+    background: t.token("color-raised");
+    color: t.token("color-content");
+    font: 500 t.token("type-scale-label") t.token("font-display");
+    cursor: pointer;
+    transition:
+      transform t.token("motion-feedback") t.token("motion-easing"),
+      filter t.token("motion-feedback");
+    &:hover:not(:disabled) {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+    &:active:not(:disabled) {
+      transform: translateY(2px);
+    }
+    &:focus-visible {
+      @include t.focus-ring;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    &--primary {
+      @include t.chamfer(t.token("geometry-action-chamfer"));
+      background: t.token("color-action");
+      color: t.token("color-recess");
+      border-color: transparent;
+      &:focus-visible {
+        outline: 0;
+        box-shadow:
+          inset 0 0 0 2px t.token("color-recess"),
+          inset 0 0 0 4px t.token("color-content");
+      }
+    }
+    &--secondary {
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, t.token("color-raised"), white 8%),
+        t.token("color-raised")
+      );
+      border-color: t.token("color-boundary");
+      box-shadow:
+        inset 0 1px rgb(255 255 255 / 4%),
+        0 2px 3px rgb(0 0 0 / 20%);
+    }
+  }
+  .ui-panel {
+    @include t.panel;
+    padding: t.token("spacing-panel");
+    &--recessed {
+      @include t.panel(true);
+    }
+    &__label {
+      font: t.token("type-scale-caption") t.token("font-instrument");
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: t.token("color-secondary");
+      margin: 0 0 16px;
+    }
+  }
+  .ui-field {
+    display: grid;
+    gap: t.token("spacing-unit");
+    &__label {
+      font: t.token("type-scale-caption") t.token("font-instrument");
+      letter-spacing: 0.6px;
+      color: t.token("color-secondary");
+    }
+    &__input {
+      @include t.panel(true);
+      min-height: t.token("size-target");
+      box-sizing: border-box;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: t.token("geometry-corner-radius");
+      color: t.token("color-content");
+      font: t.token("type-scale-label") t.token("font-instrument");
+      &:focus-visible {
+        @include t.focus-ring;
+      }
+      &[aria-invalid="true"] {
+        border-color: t.token("color-attention");
+      }
+    }
+  }
+  .ui-range {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    height: t.token("size-target");
+    background-color: transparent;
+    background-size: 100% 3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 16px 0;
+    background-image: linear-gradient(
+      90deg,
+      t.token("color-action") var(--ui-range-fill, 50%),
+      t.token("color-seam") var(--ui-range-fill, 50%)
+    );
+    cursor: pointer;
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+    &::-moz-range-track {
+      background: transparent;
+    }
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 24px;
+      border: 1px solid t.token("color-content");
+      border-radius: t.token("geometry-corner-radius");
+      background: t.token("color-action");
+      box-shadow: 0 0 0 3px t.token("color-recess");
+    }
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 24px;
+      border: 1px solid t.token("color-content");
+      border-radius: t.token("geometry-corner-radius");
+      background: t.token("color-action");
+    }
+    &:focus-visible {
+      @include t.focus-ring;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  .ui-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    min-height: t.token("size-target");
+    cursor: pointer;
+    font: t.token("type-scale-body") t.token("font-display");
+    input {
+      position: absolute;
+      opacity: 0;
+      width: t.token("size-switch-width");
+      height: t.token("size-target");
+      right: 0;
+    }
+    &__track {
+      position: relative;
+      box-sizing: border-box;
+      width: t.token("size-switch-width");
+      height: t.token("size-switch-height");
+      flex-shrink: 0;
+      background: t.token("color-recess");
+      border: t.token("geometry-seam-width") solid t.token("color-boundary");
+      pointer-events: none;
+      &::after {
+        content: "";
+        position: absolute;
+        width: t.token("size-switch-thumb");
+        height: t.token("size-switch-thumb");
+        left: 4px;
+        top: 4px;
+        background: t.token("color-secondary");
+        transition:
+          transform t.token("motion-state") t.token("motion-easing"),
+          background t.token("motion-state");
+      }
+    }
+    input:checked + .ui-switch__track::after {
+      transform: translateX(16px);
+      background: t.token("color-action");
+    }
+    input:focus-visible + .ui-switch__track {
+      @include t.focus-ring;
+    }
+    input:disabled + .ui-switch__track {
+      opacity: 0.5;
+    }
+    &:has(input:disabled) { cursor: not-allowed; }
+  }
+  .ui-segmented {
+    display: inline-flex;
+    gap: 3px;
+    padding: 3px;
+    @include t.panel(true);
+    button {
+      min-height: t.token("size-target");
+      padding: 8px 14px;
+      border: 0;
+      border-radius: t.token("geometry-corner-radius");
+      background: transparent;
+      color: t.token("color-secondary");
+      font: t.token("type-scale-caption") t.token("font-instrument");
+      cursor: pointer;
+      &:focus-visible {
+        @include t.focus-ring;
+      }
+      &.is-active,
+      &[aria-pressed="true"] {
+        background: t.token("color-raised");
+        color: t.token("color-action");
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+  .ui-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: t.token("spacing-control");
+    @include t.panel;
+    border-left: 2px solid t.token("color-action");
+    color: t.token("color-content");
+    font: t.token("type-scale-label") t.token("font-display");
+    &::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      flex-shrink: 0;
+      background: t.token("color-action");
+    }
+    &--attention {
+      border-left-color: t.token("color-attention");
+      &::before {
+        background: t.token("color-attention");
+      }
+    }
+  }
+  .ui-instrument {
+    position: relative;
+    height: 360px;
+    perspective: 1200px;
+    color: t.token("color-schematic");
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: var(--ui-instrument-intensity, 0.72);
+      transform: rotateX(5deg) rotateY(-12deg) rotateZ(-12deg);
+      filter: drop-shadow(0 0 4px rgb(105 212 255 / 7%));
+    }
+    .model-projection {
+      transform: translateY(25px);
+    }
+    .model-layer {
+      color: t.token("color-schematic");
+    }
+    .model-base {
+      opacity: 0.6;
+    }
+    .model-layer.selected-part {
+      color: t.token("color-attention");
+    }
+    .model-surface {
+      fill: t.token("material-schematic-fill");
+      stroke: currentColor;
+      stroke-width: 0.8;
+    }
+    .model-wires {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.7;
+    }
+    .inner-edge {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.45;
+    }
+    .core-mark {
+      fill: t.token("material-schematic-fill");
+      stroke: currentColor;
+      stroke-width: 1.2;
+    }
+    .projection-guides {
+      opacity: 0.55;
+    }
+    .technical-dimensions {
+      opacity: 0.6;
+    }
+    .model-dimension-text {
+      opacity: 0.7;
+    }
+    &[data-ui-mode="material"] svg {
+      filter: drop-shadow(0 18px 9px rgb(0 0 0 / 50%));
+    }
+    &[data-ui-mode="material"] .core-mark {
+      fill: t.token("color-content");
+    }
+  }
+  .ui-motion-off *,
+  .ui-motion-off *::before,
+  .ui-motion-off *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  @include application.styles;
+  @media (prefers-reduced-motion: reduce) {
+    .ui-button,
+    .ui-switch__track::after {
+      transition: none;
+    }
+    .ui-instrument svg {
+      transition: none;
+    }
+  }
+}

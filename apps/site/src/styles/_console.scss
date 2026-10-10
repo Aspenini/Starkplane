@@ -1,0 +1,518 @@
+// The original geometry and graphite materials frame the cinematic instrument.
+.release-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding: 12px 14px;
+  margin-bottom: 32px;
+  border: 1px solid var(--seam);
+  border-left: 2px solid var(--amber);
+  background: var(--surface);
+  color: var(--muted);
+  font: var(--ui-type-scale-caption) var(--mono);
+  line-height: 1.7;
+  p {
+    margin: 0;
+  }
+  strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+  > span {
+    color: var(--amber);
+  }
+}
+.model-workspace {
+  min-width: 0;
+  margin-top: -160px;
+}
+.model-toolbar,
+.model-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--seam);
+  background: var(--recess);
+  color: var(--muted);
+  font: var(--ui-type-scale-caption) var(--mono);
+  letter-spacing: 0.5px;
+  i {
+    font-style: normal;
+    margin: 0 6px;
+  }
+}
+.model-toolbar {
+  border-bottom: 0;
+}
+.model-modes {
+  display: flex;
+  gap: 3px;
+}
+.model-modes button {
+  min-height: 32px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: var(--ui-type-scale-caption) var(--mono);
+  &.selected {
+    color: var(--accent);
+    background: var(--raised);
+    border-color: var(--seam);
+  }
+}
+.model-workspace .instrument-panel {
+  margin: 0;
+  height: 380px;
+}
+.instrument-visual {
+  inset: 28px 20px;
+}
+.model-annotation {
+  position: absolute;
+  z-index: 2;
+  color: var(--ui-color-schematic);
+  font: var(--ui-type-scale-caption) var(--mono);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  i {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.35;
+    margin: 8px 0;
+  }
+  small {
+    font-size: var(--ui-type-scale-caption);
+    color: var(--muted);
+  }
+}
+.annotation-upper {
+  top: 90px;
+  left: 18px;
+}
+.annotation-lower {
+  bottom: 82px;
+  right: 18px;
+  text-align: right;
+  i {
+    margin-left: auto;
+  }
+}
+.orbital-backdrop,
+.view-axis {
+  display: none;
+}
+.scan-beam {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent);
+  pointer-events: none;
+}
+.analysis-running .scan-beam {
+  display: block;
+  animation: inspect-sweep 1.4s ease-in-out;
+}
+@keyframes inspect-sweep {
+  from {
+    top: 15%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  to {
+    top: 90%;
+    opacity: 0;
+  }
+}
+.model-statusbar {
+  border-top: 0;
+  font-size: var(--ui-type-scale-caption);
+  b {
+    font-weight: 400;
+    color: var(--text);
+  }
+}
+.inspection-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px 16px;
+  border: 1px solid var(--seam);
+  border-top: 0;
+  background: var(--surface);
+  > div > span {
+    display: block;
+    color: var(--muted);
+    font: var(--ui-type-scale-caption) var(--mono);
+    letter-spacing: 0.7px;
+  }
+  strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 28px;
+    font-weight: 400;
+  }
+  strong span {
+    margin-left: 8px;
+    color: var(--muted);
+    font: var(--ui-type-scale-caption) var(--mono);
+  }
+}
+.assembly-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin: 44px 0 20px;
+  h2 {
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -0.8px;
+    margin: 12px 0 0;
+  }
+  > span {
+    color: var(--muted);
+    font: var(--ui-type-scale-caption) var(--mono);
+  }
+}
+.engineering-console {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--seam);
+  background: var(--surface);
+}
+.assembly-controls,
+.telemetry-panel {
+  padding: 28px;
+  min-width: 0;
+}
+.assembly-controls {
+  border-right: 1px solid var(--seam);
+}
+.console-section-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: var(--ui-type-scale-caption) var(--mono);
+  letter-spacing: 1px;
+  color: var(--muted);
+  > span {
+    color: var(--amber);
+  }
+}
+.assembly-root {
+  margin: 24px 0 12px;
+  font: 12px var(--mono);
+  span {
+    color: var(--accent);
+    margin-right: 12px;
+  }
+  small {
+    font-size: var(--ui-type-scale-caption);
+    color: var(--muted);
+    margin-left: 12px;
+  }
+}
+.assembly-tree {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+.layer-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  font: 11px var(--mono);
+  > span:last-child {
+    margin-left: auto;
+    font-size: var(--ui-type-scale-caption);
+  }
+  &:hover {
+    background: var(--raised);
+    color: var(--text);
+  }
+  &.selected {
+    border-color: #525944;
+    background: #252a25;
+    color: var(--accent);
+  }
+}
+.layer-node {
+  width: 7px;
+  height: 7px;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.assembly-controls .range-label {
+  margin-top: 24px;
+}
+.assembly-controls .button {
+  margin-top: 16px;
+}
+.control-label {
+  margin-top: 30px;
+}
+.console-specs {
+  margin: 18px 0;
+  font: var(--ui-type-scale-caption) var(--mono);
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--seam);
+  }
+  dt {
+    color: var(--muted);
+  }
+  dd {
+    margin: 0;
+  }
+}
+.console-control-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+}
+.bracket-symbol {
+  color: var(--accent);
+  font-size: 40px;
+}
+.inspection-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+  font: var(--ui-type-scale-caption) var(--mono);
+  color: var(--muted);
+  strong {
+    display: block;
+    margin-top: 8px;
+    font: 20px var(--display);
+    color: var(--text);
+  }
+}
+.target-icon {
+  color: var(--accent);
+  font-size: 36px;
+}
+.trace-caption,
+.trace-scale {
+  display: flex;
+  justify-content: space-between;
+  font: var(--ui-type-scale-caption) var(--mono);
+  color: var(--muted);
+}
+.response-trace {
+  display: block;
+  width: 100%;
+  height: 120px;
+  margin: 12px 0 8px;
+  overflow: hidden;
+  background: var(--recess);
+  border: 1px solid var(--seam);
+}
+.trace-grid {
+  fill: none;
+  stroke: var(--seam);
+  stroke-width: 0.5;
+}
+#layer-trace {
+  fill: none;
+  stroke: var(--ui-color-schematic);
+  stroke-width: 1;
+}
+.telemetry-fields {
+  margin: 20px 0;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--seam);
+    font: var(--ui-type-scale-caption) var(--mono);
+  }
+  span {
+    color: var(--muted);
+  }
+  strong {
+    font-weight: 400;
+  }
+}
+.activity-label {
+  margin-top: 30px;
+}
+.activity-stream {
+  padding: 0;
+  margin: 18px 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font: var(--ui-type-scale-caption) var(--mono);
+    line-height: 1.5;
+  }
+  time {
+    color: var(--muted);
+  }
+  i {
+    font-style: normal;
+    color: var(--accent);
+    margin-left: auto;
+  }
+}
+.telemetry-note {
+  color: var(--muted);
+  font: var(--ui-type-scale-caption) var(--mono);
+  line-height: 1.8;
+}
+.workspace-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 0;
+  color: var(--muted);
+  font: var(--ui-type-scale-caption) var(--mono);
+  .text-button {
+    font-size: var(--ui-type-scale-caption);
+    padding: 0;
+  }
+}
+// Original action geometry and machined secondary faces use the public library.
+.button.ui-button {
+  font-size: 12px;
+  min-height: 44px;
+}
+.button.ui-button--primary {
+  color: #1b2113;
+}
+@media (min-width: 1450px) {
+  .model-workspace {
+    margin-top: -158px;
+  }
+  .model-workspace .instrument-panel {
+    height: 400px;
+  }
+}
+@media (max-width: 1150px) {
+  .model-workspace {
+    margin-top: -139px;
+  }
+  .model-workspace .instrument-panel {
+    height: 320px;
+  }
+  .assembly-controls,
+  .telemetry-panel {
+    padding: 24px;
+  }
+}
+@media (max-width: 900px) {
+  .model-workspace {
+    margin-top: 0;
+  }
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
+  .hero-copy > p {
+    max-width: 480px;
+  }
+  .model-workspace .instrument-panel {
+    height: 400px;
+  }
+}
+@media (max-width: 650px) {
+  .release-notice {
+    font-size: var(--ui-type-scale-caption);
+    margin-bottom: 24px;
+  }
+  .engineering-console {
+    grid-template-columns: 1fr;
+  }
+  .assembly-controls {
+    border-right: 0;
+    border-bottom: 1px solid var(--seam);
+  }
+  .assembly-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .assembly-heading h2 {
+    font-size: 25px;
+  }
+  .model-toolbar > span {
+    font-size: var(--ui-type-scale-caption);
+  }
+  .model-workspace .instrument-panel {
+    height: 350px;
+  }
+  .model-statusbar > span:nth-child(2) {
+    display: none;
+  }
+  .inspection-strip {
+    gap: 10px;
+    padding: 18px 12px;
+    strong {
+      font-size: 25px;
+    }
+    > div > span {
+      font-size: var(--ui-type-scale-caption);
+    }
+  }
+  .instrument-top,
+  .instrument-bottom {
+    left: 12px;
+    right: 12px;
+    letter-spacing: 0.4px;
+  }
+  .instrument-bottom > span:first-child {
+    font-size: 5px;
+  }
+  .annotation-upper {
+    top: 85px;
+    left: 12px;
+  }
+  .annotation-lower {
+    right: 12px;
+  }
+  .instrument-visual {
+    inset: 28px 10px;
+  }
+  .activity-stream li {
+    font-size: var(--ui-type-scale-caption);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .analysis-running .scan-beam {
+    animation: none;
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "starkplane",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Provisional Sass and TypeScript library for precision-engineered interfaces.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sass": "./src/styles/index.scss",
+  "style": "./lib/style.css",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./styles.css": "./lib/style.css",
+    "./scss": {
+      "sass": "./src/styles/index.scss",
+      "default": "./src/styles/index.scss"
+    },
+    "./tokens.json": "./lib/tokens.json",
+    "./specification.md": "./docs/design-language.md"
+  },
+  "files": [
+    "lib",
+    "src",
+    "examples",
+    "README.md",
+    "docs"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "scripts": {
+    "build": "bun ../../scripts/build-web.mjs",
+    "check": "bun ../../node_modules/typescript/bin/tsc --noEmit -p tsconfig.json",
+    "check:consumer": "bun ../../node_modules/typescript/bin/tsc --noEmit -p tsconfig.consumer.json",
+    "test:unit": "bun test tests/*.test.mjs",
+    "test": "bun run build && bun run check:consumer && bun run test:unit",
+    "pack:local": "bun run build && bun pm pack --destination ../../artifacts --ignore-scripts"
+  },
+  "packageManager": "bun@1.4.0"
+}

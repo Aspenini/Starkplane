@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "generated";
+
+$theme: () !default;
+
+@function token($key) {
+  @if not map.has-key(generated.$tokens, $key) {
+    @error "Unknown interface token: #{$key}";
+  }
+  @return var(
+    --ui-#{$key},
+    #{map.get(map.merge(generated.$tokens, $theme), $key)}
+  );
+}
+
+@mixin theme($overrides: ()) {
+  $values: map.merge(map.merge(generated.$tokens, $theme), $overrides);
+  @each $key, $value in $values {
+    @if not map.has-key(generated.$tokens, $key) {
+      @error "Unknown interface token: #{$key}";
+    }
+    --ui-#{$key}: #{$value};
+  }
+}
+
+@mixin focus-ring {
+  outline: token("focus-width") solid token("color-action");
+  outline-offset: token("focus-offset");
+}
+
+@mixin chamfer($size: 8px) {
+  clip-path: polygon(
+    0 0,
+    calc(100% - #{$size}) 0,
+    100% $size,
+    100% 100%,
+    $size 100%,
+    0 calc(100% - #{$size})
+  );
+}
+
+@mixin panel($recessed: false) {
+  border: token("geometry-seam-width") solid token("color-seam");
+  @if $recessed {
+    background: token("color-recess");
+  } @else {
+    background: token("color-surface");
+  }
+  box-shadow: inset 0 1px token("material-highlight");
+}

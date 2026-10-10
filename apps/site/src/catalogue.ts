@@ -1,0 +1,24 @@
+import { createTabs, createDisclosure, createDialog, createMenu, createTooltip, createField, renderIcon } from "starkplane";
+import { $ } from "./dom.js";
+import { toast } from "./app.js";
+const tabs = createTabs($("#example-tabs"));
+const disclosure = createDisclosure($<HTMLButtonElement>("#disclosure-trigger"), $("#disclosure-content"), { open: false });
+const dialog = createDialog($<HTMLDialogElement>("#example-dialog"), { initialFocus: $<HTMLElement>("#dialog-input") });
+const menu = createMenu($<HTMLButtonElement>("#menu-trigger"), $("#example-menu"), { onSelect: value => toast(`Local command selected: ${value}.`) });
+$("#tooltip-trigger").innerHTML = renderIcon("info");
+const tooltip = createTooltip($("#tooltip-trigger"), $("#example-tooltip"));
+$("#icon-examples").innerHTML = ["arrow-right", "chevron-down", "check", "close", "plus", "minus", "menu", "search", "info", "warning"].map(name => renderIcon(name as Parameters<typeof renderIcon>[0])).join("");
+$<HTMLInputElement>("#partial-selection").indeterminate = true;
+const email = createField($<HTMLInputElement>("#form-email"), { error: $("#email-error") });
+$("#dialog-trigger").addEventListener("click", () => dialog.show());
+$("#dialog-confirm").addEventListener("click", () => { dialog.close("confirmed"); toast("Calibration confirmed for this local specimen."); });
+$("#discard-draft").addEventListener("click", () => { $<HTMLFormElement>("#specimen-form").reset(); toast("The local draft was cleared."); });
+$("#tertiary-action").addEventListener("click", () => toast("Tertiary action activated."));
+$("#specimen-form").addEventListener("submit", event => {
+  event.preventDefault();
+  const valid = email.validate();
+  $("#form-result").textContent = valid ? "Validation passed. No data was sent or saved." : "Correct the contact email to continue.";
+  if (!valid) $("#form-email").focus();
+});
+$("#specimen-form").addEventListener("reset", () => { $("#form-result").textContent = "No data is sent or saved."; });
+window.addEventListener("pagehide", event => { if (!event.persisted) [tabs, disclosure, dialog, menu, tooltip, email].forEach(controller => controller.destroy()); });
